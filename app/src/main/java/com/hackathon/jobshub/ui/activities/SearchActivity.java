@@ -1,15 +1,16 @@
 package com.hackathon.jobshub.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
-import android.widget.TextView;
+import android.view.View;
 
 import com.hackathon.jobshub.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -22,8 +23,10 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-
-        //startActivity(new Intent(SearchActivity.this, LoginActivity.class));
     }
 
+    @OnClick(R.id.btnSignIn)
+    public void onSignInClick(View v) {
+        startActivity(new Intent(SearchActivity.this, LoginActivity.class));
+    }
 }
