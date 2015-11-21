@@ -25,6 +25,10 @@
         <activity
             android:name=".ui.activities.LoginActivity"
             android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.activities.JobsActivity"
+            android:label="@string/title_activity_jobs"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

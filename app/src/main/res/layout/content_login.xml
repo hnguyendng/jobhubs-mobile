@@ -59,7 +59,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:background="@drawable/edit_text_square"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/btnSignIn"
