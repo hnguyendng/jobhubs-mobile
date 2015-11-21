@@ -69,7 +69,7 @@
             android:layout_alignBaseline="@+id/tvWhere"
             android:layout_below="@id/etJobsTitle"
             android:layout_toRightOf="@id/tvWhere"
-            android:text=" city, state, or zip code" />
+            android:text=" city" />
 
         <LinearLayout
             android:layout_width="match_parent"

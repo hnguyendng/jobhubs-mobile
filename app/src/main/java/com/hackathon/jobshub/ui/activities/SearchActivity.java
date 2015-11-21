@@ -14,9 +14,12 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.hackathon.jobshub.R;
+import com.hackathon.jobshub.apis.IResponse;
+import com.hackathon.jobshub.apis.Maps;
 import com.hackathon.jobshub.utils.GoogleUtils;
 import com.hackathon.jobshub.utils.LogUtils;
-import com.hackathon.jobshub.utils.StringUtils;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -79,9 +82,36 @@ public class SearchActivity extends AppCompatActivity implements GoogleApiClient
     public void onGPSClick(View v) {
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (mLastLocation != null) {
+
+            Maps.getAddresses(this, mLastLocation.getLatitude(), mLastLocation.getLongitude(), new IResponse<List<String>>() {
+                @Override
+                public void onResponse(List<String> response) {
+
+                    String location = null;
+
+                    String[] provinces = getResources().getStringArray(R.array.provinces);
+
+                    for (String addresses : response) {
+                        for (String province : provinces) {
+                            if (addresses.toLowerCase().contains(province.toLowerCase())) {
+                                location = province;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (location != null) {
+                        completeLocation.setText(location);
+                    }
+                }
+
+                @Override
+                public void onFailure() {
+
+                }
+            });
+
             LogUtils.d(TAG, "onConnected", mLastLocation.getLatitude() + " " + mLastLocation.getLongitude());
-            //mLatitudeText.setText(String.valueOf(mLastLocation.getLatitude()));
-            //mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
         } else {
             LogUtils.d(TAG, "onConnected", "mLastLocation is null");
 

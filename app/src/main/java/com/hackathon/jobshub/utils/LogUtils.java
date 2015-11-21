@@ -1,9 +1,7 @@
 package com.hackathon.jobshub.utils;
 
-import com.bluelinelabs.logansquare.LoganSquare;
+import com.google.gson.Gson;
 import com.hackathon.jobshub.BuildConfig;
-
-import java.io.IOException;
 
 /**
  * Created by Nguyen on 11/21/2015.
@@ -15,8 +13,8 @@ public class LogUtils {
     public static void o(String className, String methodName, Object src) {
         if (isPrintLog) {
             try {
-                android.util.Log.i("JobsHub " + className, methodName + ": " + new LoganSquare().serialize(src));
-            } catch (IOException ex) {
+                android.util.Log.i("JobsHub " + className, methodName + ": " + new Gson().toJson(src));
+            } catch (Exception ex) {
                 LogUtils.e("LogUtils", "o", ex);
             }
         }

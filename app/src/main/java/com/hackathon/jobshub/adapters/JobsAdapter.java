@@ -36,7 +36,10 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         Job o = data.get(position);
         ViewHolder holderJob = (ViewHolder) holder;
         holderJob.tvTitle.setText(o.title);
+        holderJob.tvCompany.setText(o.company);
+        holderJob.tvLocation.setText(o.location);
         holderJob.tvContent.setText(o.content);
+        holderJob.tvSource.setText(o.source);
         holderJob.tvDate.setText(o.date);
     }
 
@@ -49,8 +52,14 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         @Bind(R.id.tvTitle)
         TextView tvTitle;
+        @Bind(R.id.tvCompany)
+        TextView tvCompany;
+        @Bind(R.id.tvLocation)
+        TextView tvLocation;
         @Bind(R.id.tvContent)
         TextView tvContent;
+        @Bind(R.id.tvSource)
+        TextView tvSource;
         @Bind(R.id.tvDate)
         TextView tvDate;
 
