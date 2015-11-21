@@ -29,9 +29,4 @@ public class SearchActivity extends AppCompatActivity {
     public void onFindJobsClick(View v) {
         startActivity(new Intent(SearchActivity.this, JobsActivity.class));
     }
-
-    @OnClick(R.id.btnSignIn)
-    public void onSignInClick(View v) {
-        startActivity(new Intent(SearchActivity.this, LoginActivity.class));
-    }
 }

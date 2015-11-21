@@ -1,7 +1,6 @@
 package com.hackathon.jobshub.ui.activities;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +10,7 @@ import android.view.View;
 import com.hackathon.jobshub.R;
 import com.hackathon.jobshub.adapters.JobsAdapter;
 import com.hackathon.jobshub.models.Job;
+import com.hackathon.jobshub.ui.fragments.FilterDialogFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +60,7 @@ public class JobsActivity extends AppCompatActivity {
 
     @OnClick(R.id.fab)
     public void onFabClick(View view) {
-        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        FilterDialogFragment dialog = FilterDialogFragment.newInstance();
+        dialog.show(getSupportFragmentManager(), FilterDialogFragment.class.getSimpleName());
     }
 }
