@@ -15,20 +15,11 @@
 
     <ImageView
         android:id="@+id/ivLogo"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:src="@android:drawable/sym_def_app_icon" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="8dp"
-        android:text="Jobs Hub"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        android:textColor="#FF9800" />
+        android:src="@drawable/ic_logo" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -96,7 +87,7 @@
         android:id="@+id/btnFindJobs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="Find Jobs"
         android:textColor="@android:color/white" />
 
