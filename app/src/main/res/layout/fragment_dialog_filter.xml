@@ -17,10 +17,17 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Filter by"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
             <RadioGroup
                 android:id="@+id/radioSortType"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
 
                 <RadioButton
                     android:id="@+id/radioRelevance"
