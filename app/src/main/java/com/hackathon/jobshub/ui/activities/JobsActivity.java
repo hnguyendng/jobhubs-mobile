@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.hackathon.jobshub.R;
@@ -32,13 +33,13 @@ public class JobsActivity extends AppCompatActivity {
     Toolbar toolbar;
 
     @Bind(R.id.jobs_list)
-    RecyclerView jobsList;
+    RecyclerView recyclerView;
     @Bind(R.id.swipe)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
     JobsAdapter jobsAdapter;
     EndlessRecyclerOnScrollListener recyclerOnScrollListener;
-    List<Job> jobList;
+    List<Job> jobList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +47,13 @@ public class JobsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_jobs);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mSwipeRefreshLayout.setColorSchemeColors(R.color.colorPrimary);
+        mSwipeRefreshLayout.setColorSchemeResources(
+                android.R.color.holo_blue_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_green_light,
+                android.R.color.holo_red_light);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -55,12 +61,12 @@ public class JobsActivity extends AppCompatActivity {
             }
         });
 
-        jobsList.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         llm.setSmoothScrollbarEnabled(true);
-        jobsList.setLayoutManager(llm);
-        jobsList.addOnItemTouchListener(
+        recyclerView.setLayoutManager(llm);
+        recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
@@ -84,14 +90,28 @@ public class JobsActivity extends AppCompatActivity {
                 jobList.add(new Job());
                 jobList.add(new Job());
                 jobList.add(new Job());
-                
+
                 jobsAdapter.notifyDataSetChanged();
             }
         };
 
-        jobsList.addOnScrollListener(recyclerOnScrollListener);
+        recyclerView.addOnScrollListener(recyclerOnScrollListener);
+
+        jobsAdapter = new JobsAdapter(jobList);
+        recyclerView.setAdapter(jobsAdapter);
 
         load();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void refreshList() {
@@ -105,7 +125,10 @@ public class JobsActivity extends AppCompatActivity {
     }
 
     private void load() {
-        jobList = new ArrayList<>();
+
+        recyclerOnScrollListener.reset();
+
+        jobList.clear();
 
         jobList.add(new Job());
         jobList.add(new Job());
@@ -118,8 +141,9 @@ public class JobsActivity extends AppCompatActivity {
         jobList.add(new Job());
         jobList.add(new Job());
 
-        jobsAdapter = new JobsAdapter(jobList);
-        jobsList.setAdapter(jobsAdapter);
+        //jobsAdapter = new JobsAdapter(jobList);
+        //recyclerView.setAdapter(jobsAdapter);
+        jobsAdapter.notifyDataSetChanged();
     }
 
     @OnClick(R.id.fab)
