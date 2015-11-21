@@ -37,6 +37,7 @@ dependencies {
     // Local binary dependency
     compile fileTree(dir: 'libs', include: ['*.jar'])
     // Remote binary dependency
+    compile 'com.google.android.gms:play-services:8.3.0'
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:design:23.1.0'
     compile 'com.android.support:cardview-v7:23.1.0'

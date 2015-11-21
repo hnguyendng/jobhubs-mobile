@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="provinces">
+        <item>An Giang</item>
+        <item>Ba Ria - Vung Tau</item>
+        <item>Bac Giang</item>
+        <item>Bac Kan</item>
+        <item>Bac Lieu</item>
+        <item>Bac Ninh</item>
+        <item>Ben Tre</item>
+        <item>Binh Đinh</item>
+        <item>Binh Duong</item>
+        <item>Binh Phuoc</item>
+        <item>Binh Thuan</item>
+        <item>Ca Mau</item>
+        <item>Cao Bang</item>
+        <item>Đak Lak</item>
+        <item>Đak Nong</item>
+        <item>Đien Bien</item>
+        <item>Đong Nai</item>
+        <item>Đong Thap</item>
+        <item>Gia Lai</item>
+        <item>Ha Giang</item>
+        <item>Ha Nam</item>
+        <item>Ha Tinh</item>
+        <item>Hai Duong</item>
+        <item>Hau Giang</item>
+        <item>Hoa Binh</item>
+        <item>Hung Yen</item>
+        <item>Khanh Hoa</item>
+        <item>Kien Giang</item>
+        <item>Kon Tum</item>
+        <item>Lai Chau</item>
+        <item>Lam Đong</item>
+        <item>Lang Son</item>
+        <item>Lao Cai</item>
+        <item>Long An</item>
+        <item>Nam Đinh</item>
+        <item>Nghe An</item>
+        <item>Ninh Binh</item>
+        <item>Ninh Thuan</item>
+        <item>Phu Tho</item>
+        <item>Quang Binh</item>
+        <item>Quang Nam</item>
+        <item>Quang Ngai</item>
+        <item>Quang Ninh</item>
+        <item>Quang Tri</item>
+        <item>Soc Trang</item>
+        <item>Son La</item>
+        <item>Tay Ninh</item>
+        <item>Thai Binh</item>
+        <item>Thai Nguyen</item>
+        <item>Thanh Hoa</item>
+        <item>Thua Thien Hue</item>
+        <item>Tien Giang</item>
+        <item>Tra Vinh</item>
+        <item>Tuyen Quang</item>
+        <item>Vinh Long</item>
+        <item>Vinh Phuc</item>
+        <item>Yen Bai</item>
+        <item>Phu Yen</item>
+        <item>Can Tho</item>
+        <item>Đa Nang</item>
+        <item>Hai Phong</item>
+        <item>Ha Noi</item>
+        <item>Ho Chi Minh</item>
+    </string-array>
+</resources>

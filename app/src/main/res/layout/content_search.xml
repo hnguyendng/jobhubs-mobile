@@ -50,7 +50,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="4dp"
             android:background="@drawable/edit_text_square"
-            android:ems="10"
             android:padding="8dp" />
 
         <TextView
@@ -72,14 +71,30 @@
             android:layout_toRightOf="@id/tvWhere"
             android:text=" city, state, or zip code" />
 
-        <EditText
-            android:id="@+id/etLocation"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvWhere"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/edit_text_square"
-            android:padding="8dp" />
+            android:layout_below="@+id/tvWhere"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnGPS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="5dp"
+                android:src="@drawable/ic_gps_white" />
+
+            <AutoCompleteTextView
+                android:id="@+id/etLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_toRightOf="@+id/btnGPS"
+                android:background="@drawable/edit_text_square"
+                android:padding="8dp" />
+
+        </LinearLayout>
 
     </RelativeLayout>
 
@@ -88,6 +103,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:padding="18dp"
         android:text="Find Jobs"
         android:textColor="@android:color/white" />
 
