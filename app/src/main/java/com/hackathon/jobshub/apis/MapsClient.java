@@ -50,7 +50,7 @@ public final class MapsClient {
                     public void onErrorResponse(VolleyError error) {
                         callback.onFailure();
                     }
-                });
+                }, 30000);
 
         ConnectionManager.getInstance(context).addToRequestQueue(request);
     }
