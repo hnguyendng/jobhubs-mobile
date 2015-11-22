@@ -20,7 +20,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Filter by"
+                android:text="Sort"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
             <RadioGroup
@@ -34,14 +34,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="Sort by relevance" />
+                    android:text="Relevance" />
 
                 <RadioButton
                     android:id="@+id/radioDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Sort by title" />
+                    android:text="Title" />
 
             </RadioGroup>
 
