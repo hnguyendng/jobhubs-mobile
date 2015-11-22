@@ -8,15 +8,22 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 
+import com.hackathon.jobshub.Constants;
 import com.hackathon.jobshub.R;
 import com.hackathon.jobshub.adapters.JobsAdapter;
+import com.hackathon.jobshub.apis.IResponse;
+import com.hackathon.jobshub.apis.JobsHubClient;
 import com.hackathon.jobshub.models.Job;
+import com.hackathon.jobshub.models.SearchResponse;
 import com.hackathon.jobshub.ui.custom.EndlessRecyclerOnScrollListener;
+import com.hackathon.jobshub.ui.custom.LinearLayoutManagerWrapper;
 import com.hackathon.jobshub.ui.custom.RecyclerItemClickListener;
 import com.hackathon.jobshub.ui.fragments.FilterDialogFragment;
 import com.hackathon.jobshub.utils.LogUtils;
+import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +47,7 @@ public class JobsActivity extends AppCompatActivity {
     JobsAdapter jobsAdapter;
     EndlessRecyclerOnScrollListener recyclerOnScrollListener;
     List<Job> jobList = new ArrayList<>();
+    private boolean lastPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +70,11 @@ public class JobsActivity extends AppCompatActivity {
         });
 
         recyclerView.setHasFixedSize(true);
-        LinearLayoutManager llm = new LinearLayoutManager(this);
+        LinearLayoutManagerWrapper llm = new LinearLayoutManagerWrapper(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         llm.setSmoothScrollbarEnabled(true);
         recyclerView.setLayoutManager(llm);
+
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
@@ -79,19 +88,16 @@ public class JobsActivity extends AppCompatActivity {
 
         recyclerOnScrollListener = new EndlessRecyclerOnScrollListener(llm) {
             @Override
-            public void onLoadMore(int current_page) {
-                LogUtils.d(TAG, "onLoadMore", current_page + "");
+            public void onLoadMore(int next_page) {
+                LogUtils.d(TAG, "onLoadMore -> next page", next_page + "");
 
-                //Preferences prefs = new Preferences(mContext);
-                //int outletId = prefs.getIntValue(Constants.OUTLET_ID, -1);
+                if (lastPage == true) {
+                    return;
+                }
 
-                //loadMore(outletId, current_page, Constants.PAGE_SIZE);
-                jobList.add(new Job());
-                jobList.add(new Job());
-                jobList.add(new Job());
-                jobList.add(new Job());
-
-                jobsAdapter.notifyDataSetChanged();
+                //if (currentPage != next_page) {
+                load(currentPage + 1);
+                //}
             }
         };
 
@@ -125,25 +131,39 @@ public class JobsActivity extends AppCompatActivity {
     }
 
     private void load() {
-
         recyclerOnScrollListener.reset();
+        load(null);
+    }
 
+    int currentPage = 1;
+
+    private void load(final Integer page) {
         jobList.clear();
 
-        jobList.add(new Job());
-        jobList.add(new Job());
-        jobList.add(new Job());
-        jobList.add(new Job());
-        jobList.add(new Job());
-        jobList.add(new Job());
-        jobList.add(new Job());
-        jobList.add(new Job());
-        jobList.add(new Job());
-        jobList.add(new Job());
+        String searchTerm = Prefs.getString(Constants.SEARCH_TERM, null);
+        String city = Prefs.getString(Constants.CITY, null);
 
-        //jobsAdapter = new JobsAdapter(jobList);
-        //recyclerView.setAdapter(jobsAdapter);
-        jobsAdapter.notifyDataSetChanged();
+        JobsHubClient.getJobs(this, searchTerm, city, null, page, null, new IResponse<SearchResponse>() {
+            @Override
+            public void onResponse(SearchResponse response) {
+                currentPage = page == null ? 1 : page;
+                if (response != null) {
+                    lastPage = response.last;
+                    if (response.content != null && response.content.size() != 0)
+                        try {
+                            jobList.addAll(response.content);
+                            jobsAdapter.notifyDataSetChanged();
+                        } catch (Exception ex) {
+                            LogUtils.e(TAG, "load", ex);
+                        }
+                }
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
     }
 
     @OnClick(R.id.fab)

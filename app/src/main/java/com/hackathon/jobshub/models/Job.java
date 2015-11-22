@@ -1,22 +1,67 @@
 package com.hackathon.jobshub.models;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Nguyen on 11/21/2015.
  */
 public class Job {
 
-    public String title = "Android Developer";
+    @SerializedName("id")
+    public String id;
 
-    public String company = "Codix";
+    @SerializedName("title")
+    public String title;
 
-    public String location = "Ho chi minh";
+    @SerializedName("description")
+    public String description;
 
-    public String content = "In order to succeed in the role, you should ideally have:\n" +
-            "- At least 5 years experiences with Android\n" +
-            "- Has advanced knowledge of Java; optional C/C++";
+    @SerializedName("requirement")
+    public String requirement;
 
-    public String source = "Vietnamworks";
+    @SerializedName("companyName")
+    public String companyName;
 
-    public String date = "2 days ago";
+    @SerializedName("position")
+    public String position;
+
+    @SerializedName("vacancy")
+    public String vacancy;
+
+    @SerializedName("category")
+    public String category;
+
+    @SerializedName("minSalary")
+    public String minSalary;
+
+    @SerializedName("maxSalary")
+    public String maxSalary;
+
+    @SerializedName("city")
+    public String city;
+
+    @SerializedName("address")
+    public String address;
+
+    @SerializedName("image")
+    public String image;
+
+    @SerializedName("salaryInfo")
+    public String salaryInfo;
+
+    @SerializedName("expireDate")
+    public String expireDate;
+
+    @SerializedName("link")
+    public String link;
+
+    @SerializedName("source")
+    public String source;
+
+    @SerializedName("companyDescription")
+    public String companyDescription;
+
+    @SerializedName("benefit")
+    public String benefit;
 
 }

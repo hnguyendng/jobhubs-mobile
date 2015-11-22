@@ -1,6 +1,7 @@
 package com.hackathon.jobshub.adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,12 +36,13 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         Job o = data.get(position);
         ViewHolder holderJob = (ViewHolder) holder;
+        /*
         holderJob.tvTitle.setText(o.title);
-        holderJob.tvCompany.setText(o.company);
-        holderJob.tvLocation.setText(o.location);
-        holderJob.tvContent.setText(o.content);
+        holderJob.tvCompany.setText(o.companyName);
+        holderJob.tvLocation.setText(o.address);
+        holderJob.tvContent.setText(Html.fromHtml(o.requirement));
         holderJob.tvSource.setText(o.source);
-        holderJob.tvDate.setText(o.date);
+        holderJob.tvDate.setText(o.expireDate);*/
     }
 
     @Override

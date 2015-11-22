@@ -13,11 +13,13 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
+import com.hackathon.jobshub.Constants;
 import com.hackathon.jobshub.R;
 import com.hackathon.jobshub.apis.IResponse;
-import com.hackathon.jobshub.apis.Maps;
+import com.hackathon.jobshub.apis.MapsClient;
 import com.hackathon.jobshub.utils.GoogleUtils;
 import com.hackathon.jobshub.utils.LogUtils;
+import com.pixplicity.easyprefs.library.Prefs;
 
 import java.util.List;
 
@@ -33,7 +35,7 @@ public class SearchActivity extends AppCompatActivity implements GoogleApiClient
     Toolbar toolbar;
 
     @Bind(R.id.etJobsTitle)
-    AutoCompleteTextView completeTextView;
+    AutoCompleteTextView completeJobsTitle;
 
     @Bind(R.id.etLocation)
     AutoCompleteTextView completeLocation;
@@ -52,7 +54,7 @@ public class SearchActivity extends AppCompatActivity implements GoogleApiClient
                 "Java", "Android", "iOS", "C", "C#", "C++", "Objective C"
         };
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, titles);
-        completeTextView.setAdapter(adapter);
+        completeJobsTitle.setAdapter(adapter);
 
         completeLocation.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.provinces)));
 
@@ -75,6 +77,11 @@ public class SearchActivity extends AppCompatActivity implements GoogleApiClient
 
     @OnClick(R.id.btnFindJobs)
     public void onFindJobsClick(View v) {
+        String searchTerm = completeJobsTitle.getText().toString().trim();
+        String city = completeLocation.getText().toString().trim();
+        Prefs.putString(Constants.SEARCH_TERM, searchTerm.isEmpty() ? null : searchTerm);
+        Prefs.putString(Constants.CITY, city.isEmpty() ? null : city);
+
         startActivity(new Intent(SearchActivity.this, JobsActivity.class));
     }
 
@@ -83,7 +90,7 @@ public class SearchActivity extends AppCompatActivity implements GoogleApiClient
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (mLastLocation != null) {
 
-            Maps.getAddresses(this, mLastLocation.getLatitude(), mLastLocation.getLongitude(), new IResponse<List<String>>() {
+            MapsClient.getAddresses(this, mLastLocation.getLatitude(), mLastLocation.getLongitude(), new IResponse<List<String>>() {
                 @Override
                 public void onResponse(List<String> response) {
 

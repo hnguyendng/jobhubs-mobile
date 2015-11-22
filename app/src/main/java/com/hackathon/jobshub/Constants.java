@@ -7,4 +7,8 @@ public interface Constants {
 
     int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
+    String SEARCH_TERM = "SEARCH_TERM";
+
+    String CITY = "CITY";
+
 }

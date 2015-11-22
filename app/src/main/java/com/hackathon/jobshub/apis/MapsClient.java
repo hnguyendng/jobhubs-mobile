@@ -16,13 +16,13 @@ import java.util.List;
 /**
  * Created by Nguyen on 11/21/2015.
  */
-public final class Maps {
+public final class MapsClient {
 
-    public static final String TAG = Maps.class.getSimpleName();
+    public static final String TAG = MapsClient.class.getSimpleName();
 
     public static void getAddresses(final Context context, double lat, double lng, final IResponse<List<String>> callback) {
 
-        GsonRequest requestGsonHelper = new GsonRequest(
+        GsonRequest request = new GsonRequest(
                 Request.Method.GET,
                 String.format(APIContract.NEARBY_PLACES, lat, lng),
                 Places.class,
@@ -44,13 +44,14 @@ public final class Maps {
                             callback.onResponse(places);
                         }
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                callback.onFailure();
-            }
-        });
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        callback.onFailure();
+                    }
+                });
 
-        ConnectionManager.getInstance(context).addToRequestQueue(requestGsonHelper);
+        ConnectionManager.getInstance(context).addToRequestQueue(request);
     }
 }
