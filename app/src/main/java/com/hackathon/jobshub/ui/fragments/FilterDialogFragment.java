@@ -6,10 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.hackathon.jobshub.R;
+import com.hackathon.jobshub.ui.callbacks.FilterListenner;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -26,8 +28,14 @@ public class FilterDialogFragment extends BaseDialogFragment implements SeekBar.
     @Bind(R.id.tvDistance)
     TextView tvDistance;
 
-    public static FilterDialogFragment newInstance() {
+    @Bind(R.id.radioSortType)
+    RadioGroup radioSortType;
+
+    FilterListenner mCallback;
+
+    public static FilterDialogFragment newInstance(FilterListenner callback) {
         FilterDialogFragment fragment = new FilterDialogFragment();
+        fragment.mCallback = callback;
         return fragment;
     }
 
@@ -46,6 +54,18 @@ public class FilterDialogFragment extends BaseDialogFragment implements SeekBar.
         seekBarDistance.setOnSeekBarChangeListener(this);
 
         return rootView;
+    }
+
+    @OnClick(R.id.btnUpdate)
+    public void onUpdateClick(View v) {
+        int radioButtonID = radioSortType.getCheckedRadioButtonId();
+        View radioButton = radioSortType.findViewById(radioButtonID);
+        int index = radioSortType.indexOfChild(radioButton);
+        if(index == 0) {
+            mCallback.sortBy("RELEVANCE");
+        } else {
+            mCallback.sortBy("TITLE");
+        }
     }
 
     final int stepSize = 5;

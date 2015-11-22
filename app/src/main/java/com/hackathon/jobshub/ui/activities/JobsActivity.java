@@ -20,6 +20,7 @@ import com.hackathon.jobshub.apis.IResponse;
 import com.hackathon.jobshub.apis.JobsHubClient;
 import com.hackathon.jobshub.models.Job;
 import com.hackathon.jobshub.models.SearchResponse;
+import com.hackathon.jobshub.ui.callbacks.FilterListenner;
 import com.hackathon.jobshub.ui.custom.EndlessRecyclerOnScrollListener;
 import com.hackathon.jobshub.ui.custom.LinearLayoutManagerWrapper;
 import com.hackathon.jobshub.ui.custom.RecyclerItemClickListener;
@@ -34,7 +35,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class JobsActivity extends AppCompatActivity {
+public class JobsActivity extends AppCompatActivity implements FilterListenner {
 
     private static final String TAG = JobsActivity.class.getSimpleName();
 
@@ -49,7 +50,8 @@ public class JobsActivity extends AppCompatActivity {
     JobsAdapter jobsAdapter;
     EndlessRecyclerOnScrollListener recyclerOnScrollListener;
     List<Job> jobList = new ArrayList<>();
-    private boolean lastPage;
+    String sort = null;
+    boolean lastPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,7 +154,7 @@ public class JobsActivity extends AppCompatActivity {
         String searchTerm = Prefs.getString(Constants.SEARCH_TERM, null);
         String city = Prefs.getString(Constants.CITY, null);
 
-        JobsHubClient.getJobs(this, searchTerm, city, null, page, null, new IResponse<SearchResponse>() {
+        JobsHubClient.getJobs(this, searchTerm, city, sort, page, null, new IResponse<SearchResponse>() {
             @Override
             public void onResponse(SearchResponse response) {
                 currentPage = page == null ? 1 : page;
@@ -176,7 +178,13 @@ public class JobsActivity extends AppCompatActivity {
 
     @OnClick(R.id.fab)
     public void onFabClick(View view) {
-        FilterDialogFragment dialog = FilterDialogFragment.newInstance();
+        FilterDialogFragment dialog = FilterDialogFragment.newInstance(this);
         dialog.show(getSupportFragmentManager(), FilterDialogFragment.class.getSimpleName());
+    }
+
+    @Override
+    public void sortBy(String type) {
+        sort = type;
+        load();
     }
 }
