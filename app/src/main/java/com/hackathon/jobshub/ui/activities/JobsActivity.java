@@ -4,11 +4,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 
 import com.hackathon.jobshub.Constants;
@@ -20,7 +20,6 @@ import com.hackathon.jobshub.models.Job;
 import com.hackathon.jobshub.models.SearchResponse;
 import com.hackathon.jobshub.ui.custom.EndlessRecyclerOnScrollListener;
 import com.hackathon.jobshub.ui.custom.LinearLayoutManagerWrapper;
-import com.hackathon.jobshub.ui.custom.RecyclerItemClickListener;
 import com.hackathon.jobshub.ui.fragments.FilterDialogFragment;
 import com.hackathon.jobshub.utils.LogUtils;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -69,13 +68,14 @@ public class JobsActivity extends AppCompatActivity {
             }
         });
 
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setHasFixedSize(true);
         LinearLayoutManagerWrapper llm = new LinearLayoutManagerWrapper(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         llm.setSmoothScrollbarEnabled(true);
         recyclerView.setLayoutManager(llm);
 
-        recyclerView.addOnItemTouchListener(
+  /*      recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
@@ -84,7 +84,7 @@ public class JobsActivity extends AppCompatActivity {
                         //intent.putExtra(?, ?);
                         //startActivity(intent);
                     }
-                }));
+                }));*/
 
         recyclerOnScrollListener = new EndlessRecyclerOnScrollListener(llm) {
             @Override
@@ -102,9 +102,6 @@ public class JobsActivity extends AppCompatActivity {
         };
 
         recyclerView.addOnScrollListener(recyclerOnScrollListener);
-
-        jobsAdapter = new JobsAdapter(jobList);
-        recyclerView.setAdapter(jobsAdapter);
 
         load();
     }
@@ -132,14 +129,15 @@ public class JobsActivity extends AppCompatActivity {
 
     private void load() {
         recyclerOnScrollListener.reset();
+        jobsAdapter = new JobsAdapter(jobList);
+        recyclerView.setAdapter(jobsAdapter);
+        jobList.clear();
         load(null);
     }
 
     int currentPage = 1;
 
     private void load(final Integer page) {
-        jobList.clear();
-
         String searchTerm = Prefs.getString(Constants.SEARCH_TERM, null);
         String city = Prefs.getString(Constants.CITY, null);
 
@@ -161,7 +159,6 @@ public class JobsActivity extends AppCompatActivity {
 
             @Override
             public void onFailure() {
-
             }
         });
     }

@@ -36,13 +36,12 @@ public class JobsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         Job o = data.get(position);
         ViewHolder holderJob = (ViewHolder) holder;
-        /*
-        holderJob.tvTitle.setText(o.title);
-        holderJob.tvCompany.setText(o.companyName);
-        holderJob.tvLocation.setText(o.address);
+        holderJob.tvTitle.setText(Html.fromHtml(o.title));
+        holderJob.tvCompany.setText(Html.fromHtml(o.companyName));
+        holderJob.tvLocation.setText(Html.fromHtml(o.address));
         holderJob.tvContent.setText(Html.fromHtml(o.requirement));
         holderJob.tvSource.setText(o.source);
-        holderJob.tvDate.setText(o.expireDate);*/
+        holderJob.tvDate.setText(o.expireDate);
     }
 
     @Override

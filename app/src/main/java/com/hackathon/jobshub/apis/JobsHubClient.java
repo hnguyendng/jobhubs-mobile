@@ -2,6 +2,7 @@ package com.hackathon.jobshub.apis;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -50,6 +51,7 @@ public final class JobsHubClient {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.e(TAG, "onErrorResponse", error);
                         callback.onFailure();
                     }
                 }, 30000);
