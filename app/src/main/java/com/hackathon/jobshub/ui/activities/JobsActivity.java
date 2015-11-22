@@ -1,5 +1,7 @@
 package com.hackathon.jobshub.ui.activities;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -20,6 +22,7 @@ import com.hackathon.jobshub.models.Job;
 import com.hackathon.jobshub.models.SearchResponse;
 import com.hackathon.jobshub.ui.custom.EndlessRecyclerOnScrollListener;
 import com.hackathon.jobshub.ui.custom.LinearLayoutManagerWrapper;
+import com.hackathon.jobshub.ui.custom.RecyclerItemClickListener;
 import com.hackathon.jobshub.ui.fragments.FilterDialogFragment;
 import com.hackathon.jobshub.utils.LogUtils;
 import com.pixplicity.easyprefs.library.Prefs;
@@ -75,16 +78,24 @@ public class JobsActivity extends AppCompatActivity {
         llm.setSmoothScrollbarEnabled(true);
         recyclerView.setLayoutManager(llm);
 
-  /*      recyclerView.addOnItemTouchListener(
+        recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        //Job job = jobList.get(position);
                         //Intent intent = new Intent(JobsActivity.this, JobDetailsActivity.class);
                         //intent.putExtra(?, ?);
                         //startActivity(intent);
+                        try {
+                            Job job = jobList.get(position);
+                            String url = "http://www.example.com";
+                            Intent i = new Intent(Intent.ACTION_VIEW);
+                            i.setData(Uri.parse(job.link));
+                            startActivity(i);
+                        } catch (Exception ex) {
+                            LogUtils.e(TAG, "RecyclerItemClick", ex);
+                        }
                     }
-                }));*/
+                }));
 
         recyclerOnScrollListener = new EndlessRecyclerOnScrollListener(llm) {
             @Override

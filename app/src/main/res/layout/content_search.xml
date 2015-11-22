@@ -24,7 +24,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="24dp">
 
         <TextView
             android:id="@+id/tvWhat"
@@ -51,7 +51,8 @@
             android:layout_marginTop="4dp"
             android:background="@drawable/edit_text_square"
             android:imeOptions="actionNext"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:singleLine="true" />
 
         <TextView
             android:id="@+id/tvWhere"
@@ -93,8 +94,9 @@
                 android:layout_gravity="center_vertical"
                 android:layout_toRightOf="@+id/btnGPS"
                 android:background="@drawable/edit_text_square"
-                android:imeOptions="actionNext"
-                android:padding="8dp" />
+                android:imeOptions="actionDone"
+                android:padding="8dp"
+                android:singleLine="true" />
 
         </LinearLayout>
 
